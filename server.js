@@ -12,6 +12,8 @@ var sqlConfig = {
       database: 'news'
 }
 
+var connection = sql.createConnection(sqlConfig);
+
 var server=app.listen(port,function(){
   console.log("magic happens at port " + port);
 })
@@ -25,16 +27,15 @@ app.get('/', function(req, res) {
 
 
 var  executeQuery = function(res, query){
-     sql.connect(sqlConfig, function (err) {
+     connection.connect(function (err) {
          if (err) {
                      console.log("Error while connecting database :- " + err);
                      res.send(err);
                   }
                   else {
                          // create Request object
-                         var request = new sql.Request();
                          // query to the database
-                         request.query(query, function (err, res) {
+                         connection.query(query, function (err, res) {
                            if (err) {
                                       console.log("Error while querying database :- " + err);
                                       res.send(err);
