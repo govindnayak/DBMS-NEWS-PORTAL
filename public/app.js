@@ -6,16 +6,26 @@ app.config(function($routeProvider) {
     templateUrl: 'views/login.html',
     controller: 'loginController'
   })
-  .when('/', {
+  .when('/home', {
     templateUrl: 'views/home.html',
     controller: 'homeController'
   })
-  .when('/register', {
-    templateUrl: 'views/register.html',
-    controller: 'signupController'
+  .when('/admin', {
+    templateUrl: 'views/admin.html',
+    controller: 'adminController'
   })
+  .when('/articles/:id', {
+    templateUrl: 'views/articles.html',
+    controller: 'articleController'
+  })
+  .when('/logout', {
+    resolve: {
+      redirect: function(Session){
+            Session.clear();
+            return "/home";
+    }}})
   .otherwise({
-    redirectTo: '/'
+    redirectTo: '/home'
   })
 });
 

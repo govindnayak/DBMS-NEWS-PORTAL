@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
   <base href="/">
   <title>NEWS</title>
@@ -26,15 +26,16 @@
 
 <header>
   <h3>GOOCHE NEWS PORTAL</h3>
-  <!--<a class="mybutton" href="#/register">SIGN UP</a> -->
-  <a class="mybutton2" href="#/login">LOGIN</a>
-
+  <a class="adminbtn" href="#/admin">ADD NEWS</a>
+  <a ng-hide="isLoggedin" class="mybutton2" href="#/login">LOGIN</a>
+  
 
 
   <hr>
 </header>
 
-<body ng-app="myApp" ng-controller="mainController">
+
+<body ng-app="myApp" ng-controller="mainController" style="font-family: sans-serif">
   <div class="sidemenu">
     <br><br><span style="font-size: 20px"><b>CATEGORIES</b></span><br>
     <a class="mybutton3" href="#/">HOME</a><br><br><br>

@@ -3,7 +3,7 @@ body, html {
     -webkit-font-smoothing: antialiased;
 }
 header{
-  background-color: white	;
+
   color: #2B3856;
   margin-top: 40px;
   border-bottom: grey;
@@ -11,63 +11,64 @@ header{
   text-align: center;
   text-shadow: black;
 }
-a:link{
-  text-decoration: none;
-  text-align: center;
-  padding: 4px 4px;
-  display: inline-block;
 
+
+a:hover, a:active {
+    background-color: #2B3856;
 }
-a:active{
-  color: #303030;
+img{
+  padding-right: 15px;
+  display: inline-block;
+  float: left;
 }
 .display-area{
   float: right;
   position: absolute;
   display: inline-block;
-  margin-left: 250px;
-  margin-top: -640px;
+  margin-left: 270px;
+  margin-right: 50px;
+  margin-top: -650px;
 }
 .sidemenu{
   height: 100%;
   width: 220px;
   display: inline-block;
   font-family: sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   margin-top: -10px;
   margin-left: -10px;
   text-align: center;
   background-color: #2B3856;
-  color: black;
+  color: #000000;
+  background-blend-mode: luminosity;
 }
-
-.mybutton{
-  border:  2.5px solid #303030;
-  margin-top: -45px;
+.article{
+   box-shadow: 1px 1px 1px #888888;
+   margin-top: 8px;
+   float: right;
+   font-family: sans-serif;
+   color: #484848;
+   letter-spacing: 0.4px;
+   display: inline-block;
+   font-size: 15px;
+}
+a.mybutton2{
+  padding: 14px 25px;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  margin-top: -55px;
   cursor: pointer;
-  margin-left: -47%;
-  color: black;
-  height: 30px;
-  width: 130px;
+  margin-left: 500px;
+  text-decoration: none;
   position: absolute;
-  background: transparent;
+  background-color: #2B3856;
 }
 
-.mybutton2{
-  border:  2.5px solid #303030;
-  color: black;
-  margin-top: -45px;
-  cursor: pointer;
-  margin-left: 35%;
-  height: 30px;
-  width: 130px;
-  position: absolute;
-  background: transparent;
-}
-
-.mybutton3{
+a.mybutton3{
   border:  0px solid black;
   color: black;
+  text-decoration: none;
   width: 210px;
   height: 35px;
   margin-left: -110px;
@@ -79,18 +80,6 @@ a:active{
   background: transparent;
 }
 
-.mybutton:hover{
-  background-color: #2B3856;
-
-}
-
-.mybutton2:hover{
-  background-color: #2B3856;
-}
-
-.mybutton3:hover, .mybutton3:active, .mybutton3:visited{
-  background-color: #303030;
-}
 .loginbtn, .signupbtn{
   border:  0px solid black;
   width: 80px;
@@ -102,19 +91,18 @@ a:active{
 
 }
 .formarea{
+  float: right;
   position: absolute;
-  top: 50%;
-  bottom: 50%;
-  margin-left: 500px;
-  margin-top: -500px;
+  display: inline-block;
+  margin-left: 450px;
+  margin-top: -600px;
 
 }
 .container {
-    width: 450px;
+    width: 500px;
     float: center;
-    padding: 20px;
-    padding-left: 35px;
-    padding-top: 25px;
+    padding-left: 50px;
+    padding-top: 30px;
     padding-bottom: 50px;
     color: #303030;
     font-family: 'Petrona';
@@ -126,7 +114,7 @@ a:active{
 
 
 input[type=text], input[type=password] {
-    width: 80%;
+    width: 90%;
     padding-left: 10px;
     align-content: center;
     height: 40px;
@@ -134,6 +122,14 @@ input[type=text], input[type=password] {
     border: none;
     background-color: white;
     font-family: sans-serif;
+}
+input[type=number], input[type=datetime]{
+  border-radius: 4px;
+  border: none;
+  height: 30px;
+  padding-left: 10px;
+  font-family: sans-serif;
+
 }
 
 /* Clear floats */
