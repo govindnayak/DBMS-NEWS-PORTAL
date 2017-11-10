@@ -1,23 +1,14 @@
 <div class="fromarea">
+        <button style="float: right"><a href="#/admin">ADD NEWS</a></button>
+        <button style="float: right" onclick="document.getElementById('02').style.display='block'">DELETE NEWS</button>
 
-      <form class="formarea" method="post" action="admin" ng-submit="addnews()">
+        <button style="float: right"><a  href="#/home">LOGOUT</a></button>
+
+
+      <form class="formarea" method="post" ng-submit="addnews()">
       <div class="container">
 
-        <label style="font-family: sans-serif"><b>NewsID</b></label>
-        <input type="number" name="newsid" ng-model="newsid" required>
-
-        &nbsp&nbsp<label style="font-family: sans-serif"><b>Date</b></label>
-        <input type="datetime" name="date" ng-model="date" required><br><br><br>
-
-        <label style="font-family: sans-serif"><b>Category</b></label>
-        <select name="category" ng-model="category" class="mybutton2">
-          <option value="politics"  >Politics</option>
-          <option value="technology">Technology</option>
-          <option value="international">International</option>
-          <option value="business">Business</option>
-          <option value="movies">Movies</option>
-          <option value="sports">Sports</option>
-        </select><br><br>
+        <br><label style="font-family: sans-serif"><b>Logged in as: {{catid}}</b></label><br><br>
 
         <br><label style="font-family: sans-serif"><b>Head Line</b></label><br><br>
         <input type="text" name="headline" ng-model="headline" required><br>
@@ -25,13 +16,36 @@
         <br><label style="font-family: sans-serif"><b>Article</b></label><br><br>
         <input type="text" name="content" ng-model="content" required><br>
 
-        <br><label style="font-family: sans-serif"><b>Image</b></label>
-        <input type="file" class="mybutton2" name="filetoupload" ng-model="image" required><br><br>
+        <br><label style="font-family: sans-serif"><b>Image URL</b></label><br><br>
+        <input type="text" name="image" ng-model="image"><br><br>
 
         <div class="form-actions">
-            <button type="submit" class="loginbtn">ADD ARTICLE</button>
+            <button style="width: 160px"type="submit" class="loginbtn">ADD ARTICLE</button>
         </div>
       </div>
       </form>
 
+      <div id="02" class="modal">
+        <form class="formarea" method="post" ng-submit="deletenews(deleteheadline)">
+        <div class="container">
+
+          <br><label style="font-family: sans-serif"><b>Logged in as: {{catid}}</b></label><br><br>
+
+          <br><label style="font-family: sans-serif"><b>Head Line</b></label><br><br>
+          <input type="text" placeholder="Paste the headline here" name="deleteheadline" ng-model="deleteheadline" required><br>
+
+        </form>
+      </div>
+
 </div>
+
+
+<script>
+var modal = document.getElementById('02');
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+
+</script>

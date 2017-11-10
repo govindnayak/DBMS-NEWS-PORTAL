@@ -14,22 +14,46 @@ app.config(function($routeProvider) {
     templateUrl: 'views/admin.html',
     controller: 'adminController'
   })
-  .when('/articles/:id', {
-    templateUrl: 'views/articles.html',
-    controller: 'articleController'
+
+  .when('/politics', {
+    templateUrl: 'views/pages/politics.html',
+    controller: 'politicsController'
+  })
+  .when('/technology', {
+    templateUrl: 'views/pages/technology.html',
+    controller: 'technologyController'
+  })
+  .when('/business', {
+    templateUrl: 'views/pages/business.html',
+    controller: 'businessController'
+  })
+  .when('/sports', {
+    templateUrl: 'views/pages/sports.html',
+    controller: 'sportsController'
+  })
+  .when('/movies', {
+    templateUrl: 'views/pages/movies.html',
+    controller: 'moviesController'
+  })
+  .when('/international', {
+    templateUrl: 'views/pages/international.html',
+    controller: 'internationalController'
+  })
+  .when('/feedback', {
+    templateUrl: 'views/pages/feedback.html',
+    controller: 'feedbackController'
   })
   .when('/logout', {
-    resolve: {
-      redirect: function(Session){
-            Session.clear();
-            return "/home";
-    }}})
+    templateUrl: '',
+    controller: 'logoutController'
+  })
   .otherwise({
     redirectTo: '/home'
   })
 });
 
 
-app.controller('mainController', function($scope) {
+app.controller('mainController', function($scope,$window) {
   $scope.main = "Main";
+  $scope.logstatus = $window.localStorage["loggedin"];
 });

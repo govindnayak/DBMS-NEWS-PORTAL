@@ -1,0 +1,28 @@
+<div class="fromarea">
+
+      <form class="formarea" method="post" ng-submit="feedback()">
+      <div class="container">
+
+        <label style="font-family: sans-serif"><b>Email ID</b></label><br><br>
+        <input type="text" name="email" ng-model="email" required><br>
+
+        <br><label style="font-family: sans-serif"><b>Phone</b></label><br><br>
+        <input type="text" maxlength="10" placeholder="+91 -" name="phone" ng-model="phone"><br>
+
+        <br><label style="font-family: sans-serif"><b>Comments</b></label><br><br>
+        <input type="text" name="comment" ng-model="comment" required><br><br>
+
+
+        <label style="font-family: sans-serif"><b>Headline</b></label> (Suggest corrections to articles)<br><br>
+        <input type="text" placeholder="Paste the article headline" name="line" ng-model="line"><br>
+
+        <br><label style="font-family: sans-serif"><b>Corrections</b></label><br><br>
+        <textarea style="height: 40px; width: 90%" name="correction" ng-model="correction" required></textarea><br><br>
+
+        <div class="form-actions">
+            <button style="width: 160px"type="submit" class="loginbtn">SUBMIT</button>
+        </div>
+      </div>
+      </form>
+
+</div>

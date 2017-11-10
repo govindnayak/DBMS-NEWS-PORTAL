@@ -18,40 +18,75 @@
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="javascripts/controllers.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
-
-
 <header>
-  <h3>GOOCHE NEWS PORTAL</h3>
-  <a class="adminbtn" href="#/admin">ADD NEWS</a>
-  <a ng-hide="isLoggedin" class="mybutton2" href="#/login">LOGIN</a>
-  
-
-
-  <hr>
+  <br>
+  <a style="text-decoration: none; color: white"href="#/home"><h3>ONLINE NEWS PORTAL</h3></a>
 </header>
 
-
-<body ng-app="myApp" ng-controller="mainController" style="font-family: sans-serif">
-  <div class="sidemenu">
-    <br><br><span style="font-size: 20px"><b>CATEGORIES</b></span><br>
-    <a class="mybutton3" href="#/">HOME</a><br><br><br>
-    <a class="mybutton3" href="#/">POLITICS</a><br><br><br>
-    <a class="mybutton3" href="#/">TECHNOLOGY</a><br><br><br>
-    <a class="mybutton3" href="#/">INTERNATIONAL</a><br><br><br>
-    <a class="mybutton3" href="#/">BUSINESS</a><br><br><br>
-    <a class="mybutton3" href="#/">MOVIES</a><br><br><br>
-    <a class="mybutton3" href="#/">SPORTS</a><br><br><br>
+<body>
+  <nav>
+    <div class="toggle-wrap">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
   </div>
+  <a><div class="dotmenu">
+    <i class="fa fa-ellipsis-v fa-2x" aria-hidden="true"></i>
+  </div></a>
+</nav>
+<aside>
+  <br>
+  <a href="#/login"><img width="45px" height="45px" src="images/person.png"><br><span>LOGIN</span></a>
+  <br>
+  <a href="#/"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&emsp;&emsp;HOME</a>
+  <a href="#/politics"><i class="fa fa-microphone fa-lg" aria-hidden="true"></i>&emsp;&emsp;POLITICS</a>
+  <a href="#/technology"><i class="fa fa-desktop fa-lg" aria-hidden="true"></i>&emsp;&emsp;TECHNOLOGY</a>
+  <a href="#/international"><i class="fa fa-globe fa-lg" aria-hidden="true"></i>&emsp;&emsp;INTERNATIONAL</a>
+  <a href="#/business"><i class="fa fa-inr fa-lg" aria-hidden="true"></i>&emsp;&emsp;BUSINESS</a>
+  <a href="#/movies"><i class="fa fa-film fa-lg" aria-hidden="true"></i>&emsp;&emsp;MOVIES</a>
+  <a href="#/sports"><i class="fa fa-trophy fa-lg" aria-hidden="true"></i>&emsp;&emsp;SPORTS</a>
+  <br>
+  <a href="#/polling">Polling</a>
+  <a href="#/feedback">Feedback</a>
+  <a href="#/contactus">Contact Us</a>
+</aside>
+
+<script>
+(function() {
+$('.toggle-wrap').on('click', function() {
+  $(this).toggleClass('active');
+  $('aside').animate({width: 'toggle'}, 100);
+});
+})();
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dotmenu')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
 
 
 <div ng-view></div>
 
 </body>
-
 
 
 </html>

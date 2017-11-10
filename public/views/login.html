@@ -1,9 +1,28 @@
-<div class="fromarea">
+<div style="margin-top: 150px; margin-left: 40%">
+  <img width="180px" height="180px" src="images/login.png">
+  <br><b>Login as:</b><br><br><br>
+  <button class="mybutton" onclick="document.getElementById('01').style.display='block'">ADMIN</button>
+  <br><br>
+  <button class="mybutton" onclick="document.getElementById('03').style.display='block'">EDITOR</button>
+</div>
 
-<a ng-show="{{isLoggedin}}" class="mybutton3" href="#/logout">LOGOUT</a>
+
+<script>
+var modal = document.getElementById('01');
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+</script>
+
+
+<div id="01" class="modal">
+
       <form class="formarea" method="post" ng-submit="login()">
       <div class="container">
 
+        <h2>Login as Category Admin</h2></br>
         <label style="font-family: sans-serif"><b>Username</b></label><br><br>
         <input type="text" name="username" ng-model="username" required><br><br>
 
@@ -13,7 +32,34 @@
         <div class="form-actions">
             <button type="submit" class="loginbtn">LOG IN</button>
         </div>
+
+        <!--<div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>-->
       </div>
       </form>
+</div>
 
+<div id="03" class="modal">
+
+      <form class="formarea" method="post" ng-submit="login()">
+      <div class="container">
+
+        <h2>Login as Editor</h2></br>
+        <label style="font-family: sans-serif"><b>Username</b></label><br><br>
+        <input type="text" name="username" ng-model="username" required><br><br>
+
+        <br><label style="font-family: sans-serif"><b>Password</b></label><br><br>
+        <input type="password" name="password" ng-model="password" required><br><br>
+
+        <!--<div class="clearfix">
+        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>-->
+
+        <div class="form-actions">
+            <button type="submit" class="loginbtn">LOG IN</button>
+        </div>
+
+      </div>
+      </form>
 </div>

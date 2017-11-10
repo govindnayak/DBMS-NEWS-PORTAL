@@ -4,8 +4,10 @@ var
   bodyParser = require('body-parser'),
   sql = require('mysql'),
   formidable = require('formidable'),
+  datetime = require('node-datetime'),
   fs = require('fs'),
-  port = 3001;
+
+  port = 4000;
 
 var sqlConfig = {
       user: 'root',
@@ -15,6 +17,7 @@ var sqlConfig = {
 }
 
 var connection = sql.createConnection(sqlConfig);
+
 
 var server=app.listen(port,function(){
   console.log("magic happens at port " + port);
@@ -48,9 +51,9 @@ app.post("/login", function(req , res){
 
   })
 });
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/home", function(req, res){
-      connection.query("select * from article", function(err, data){
+      connection.query("select * from article ORDER BY aid desc", function(err, data){
         if(err)
         {
           console.log("Error while querying database :- " + err);
@@ -64,8 +67,80 @@ app.get("/home", function(req, res){
       })
 });
 
-app.get("/articles/:id", function(req, res){
-      connection.query("select * from article where cid = ?", [id] , function(err, data){
+app.get("/politics", function(req, res){
+      connection.query("select * from article where cid = ?", [1111], function(err, data){
+
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+        //  console.log(data);
+          res.send(data);
+
+        }
+      })
+});
+app.get("/technology", function(req, res){
+      connection.query("select * from article where cid = ?", [2222], function(err, data){
+        
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+        //  console.log(data);
+          res.send(data);
+
+        }
+      })
+});
+app.get("/international", function(req, res){
+      connection.query("select * from article where cid = ?", [3333], function(err, data){
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+        //  console.log(data);
+          res.send(data);
+
+        }
+      })
+});
+app.get("/business", function(req, res){
+      connection.query("select * from article where cid = ?", [4444], function(err, data){
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+        //  console.log(data);
+          res.send(data);
+
+        }
+      })
+});
+app.get("/movies", function(req, res){
+      connection.query("select * from article where cid = ?", [5555], function(err, data){
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+        //  console.log(data);
+          res.send(data);
+
+        }
+      })
+});
+app.get("/sports", function(req, res){
+      connection.query("select * from article where cid = ?", [6666], function(err, data){
         if(err)
         {
           console.log("Error while querying database :- " + err);
@@ -79,48 +154,101 @@ app.get("/articles/:id", function(req, res){
       })
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 app.post("/admin", function(req, res){
-
-  var newpath;
-
-  var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      var oldpath = files.image.path;
-      var newpath = '/home/nayak/Desktop/myapp/public/images/' + files.image.name;
-      console.log(files.image.name);
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.end();
-      });
- });
-
-
-  console.log("New path" + newpath);
+  //console.log("New path" + newpath);
   var adminid;
   var cat;
+  var dat = datetime.create();
+  var formatteddate = dat.format('Y-m-d H:M:S');
 
   connection.query('select admin_id from admin WHERE username = ?', [req.body.adminname], function(err, data){
     if(err) throw err;
     adminid = data[0].admin_id;
-  })
 
-  connection.query('select cid from category WHERE category = ?', [req.body.category], function(err, data){
+
+  connection.query('select cid from category WHERE admin_id = ?', adminid, function(err, data){
     if(err) throw err;
+
     cat = data[0].cid;
+
+
+    connection.query('insert into article (content, date, admin_id, img_url, cid, headline) values(?, ?, ?, ?, ?, ?)',[req.body.content, formatteddate, adminid, req.body.image, cat, req.body.headline], function(err, result){
+
+      if(err)
+      {
+        console.log(err);
+        res.send({"success":false , "message":"failed"});
+
+      }
+      else {
+
+        res.send({"success":true , "message":"successful"});
+      }
+  })
+  })
+  })
+});
+
+app.post("/delete", function(req, res){
+
+      connection.query('select admin_id from admin WHERE username = ?', [req.body.adminname], function(err, data){
+        if(err) throw err;
+        adminid = data[0].admin_id;
+console.log(req.body.deleteheadline);
+    connection.query('delete from article WHERE( headline = ? AND admin_id = ?)', [req.body.deleteheadline, adminid], function(err, data){
+      console.log(data);
+      if(err || (data.affectedRows==0))
+      {
+        console.log(err);
+        res.send({"success":false , "message":"Sorry, could not delete news!"});
+
+      }
+      else {
+
+        res.send({"success":true , "message":"Deleted"});
+      }
+    })
   })
 
-  connection.query('insert into article values(?, ?, ?, ?, ?, ?, ?)',[req.body.newsid, req.body.content, req.body.date, adminid, newpath, cat, req.body.headline ], function(err, result){
+});
 
-    if(err)
-    {
-      console.log(err);
-      res.send({"success":false , "message":"failed"});
 
-    }
-    else {
-      res.send({"success":false , "message":"successful"});
-    }
-})
+
+app.post("/feedback", function(req, res){
+  //console.log("New path" + newpath);
+
+    connection.query('insert into feedback values(?, ?, ?, ?, ?)',[req.body.email, req.body.phone, req.body.comment, req.body.line, req.body.correction], function(err, result){
+
+      if(err)
+      {
+        console.log(err);
+        res.send({"success":false , "message":"failed"});
+
+      }
+      else {
+        console.log(result);
+        res.send({"success":true , "message":"successful"});
+      }
+  })
+});
+
+app.post("/polling", function(req, res){
+  //console.log("New path" + newpath);
+
+    connection.query('select * from poll', function(err, result){
+
+      if(err)
+      {
+        console.log(err);
+        res.send({"success":false , "message":"failed"});
+
+      }
+      else {
+        console.log(result);
+        res.send({"success":true , "message":"successful"});
+      }
+  })
 });
 /*restAPI how to create
 how to make a post request to restAPI */
