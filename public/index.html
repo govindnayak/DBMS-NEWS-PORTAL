@@ -41,9 +41,10 @@
     <i class="fa fa-ellipsis-v fa-2x" aria-hidden="true"></i>
   </div></a>
 </nav>
-<aside>
+<aside ng-controller="loginController">
   <br>
-  <a href="#/login"><img width="45px" height="45px" src="images/person.png"><br><span>LOGIN</span></a>
+  <a ng-show="!isLoggedin" id="login" href="#/login"><img width="45px" height="45px" src="images/person.png"><br><span>LOGIN</span></a>
+  <br><a ng-show="isLoggedin"><button class="button2" onclick="logout()" style="float: right">LOGOUT</button></a>
   <br>
   <a href="#/"><i class="fa fa-home fa-lg" aria-hidden="true"></i>&emsp;&emsp;HOME</a>
   <a href="#/politics"><i class="fa fa-microphone fa-lg" aria-hidden="true"></i>&emsp;&emsp;POLITICS</a>
@@ -53,7 +54,7 @@
   <a href="#/movies"><i class="fa fa-film fa-lg" aria-hidden="true"></i>&emsp;&emsp;MOVIES</a>
   <a href="#/sports"><i class="fa fa-trophy fa-lg" aria-hidden="true"></i>&emsp;&emsp;SPORTS</a>
   <br>
-  <a href="#/polling">Polling</a>
+  <a href="#/polls">Polling</a>
   <a href="#/feedback">Feedback</a>
   <a href="#/contactus">Contact Us</a>
 </aside>

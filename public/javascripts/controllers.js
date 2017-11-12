@@ -1,32 +1,44 @@
 var app = angular.module("myApp");
 
+
 app.controller('loginController', function($scope, $location, $http, $window) {
   $scope.main = "Login";
-  $window.localStorage["loggedin"] = false;
   $scope.username = "";
   $scope.password = "";
-
+  $scope.isLoggedin = false;
   $scope.login = function() {
     $http({
       url: '/login',
       method: 'post',
       data: {
         "username": $scope.username,
-        "password": $scope.password
+        "password": $scope.password,
+        "permission": $scope.permission
       }
     }).then(function(data) {
       if(data.data.success) {
         $scope.isLoggedin = true;
+        $('#login').hide();
         $window.localStorage["value"] = $scope.username;
-        $location.path('/admin');
+        if($scope.permission == 'A')
+          $location.path('/admin');
+        else if($scope.permission == 'E')
+          $location.path('/editor');
       }
       else {
-        $scope.isLoggedin = false;
         alert(data.data.message);
       }
     }, function(err){})
   }
+
+  $scope.logout = function(){
+    $scope.isLoggedin = false;
+    $location.path('/home');
+    alert("You have successfully logged out!")
+  }
 });
+
+
 
 app.controller('homeController', function($scope,$http, $resource, $route) {
   $scope.main = "Home";
@@ -40,7 +52,6 @@ app.controller('homeController', function($scope,$http, $resource, $route) {
 app.controller('adminController', function($scope,$http, $window, $resource, $route ,$location ){
   $scope.main="admin";
   $scope.catid = $window.localStorage["value"];
-  $window.localStorage["loggedin"] = true;
 
 //  $window.localStorage["loggedin"] = true;
   $scope.addnews = function() {
@@ -63,28 +74,54 @@ app.controller('adminController', function($scope,$http, $window, $resource, $ro
       }
     }, function(err){})
   }
-
-  $scope.deletenews = function(deleteheadline) {
-    $http({
-      url: '/delete',
-      method: 'post',
-      data: {
-        "deleteheadline": deleteheadline,
-        "adminname": $window.localStorage["value"]
-      }
-    }).then(function(data) {
-      if(data.data.success) {
-        alert("Succes!");
-        $location.path('/admin');
-      }
-      else {
-        alert(data.data.message);
-      }
-    }, function(err){})
-  }
-
 });
 
+app.controller('editorController', function($scope,$http, $window, $resource, $route ,$location ){
+  $scope.main="editor";
+
+  var test = {};
+  var info=$resource('/editor');
+  info.query(function(result){
+          $scope.feed = result;
+     })
+
+     $scope.deletenews = function(x) {
+       $http({
+         url: '/delete',
+         method: 'post',
+         data: {
+           "deleteheadline": x.headline
+         }
+       }).then(function(data) {
+         if(data.data.success) {
+           alert("Succes!");
+           $location.path('/editor');
+         }
+         else {
+           alert(data.data.message);
+         }
+       }, function(err){})
+     }
+
+     $scope.approvenews = function(x) {
+       $http({
+         url: '/approve',
+         method: 'post',
+         data: {
+           "appheadline": x.headline
+         }
+       }).then(function(data) {
+         if(data.data.success) {
+           alert("Succes!");
+           $location.path('/editor');
+         }
+         else {
+           alert(data.data.message);
+         }
+       }, function(err){})
+     }
+
+});
 
 app.controller('homeController', function($scope,$http, $resource, $route) {
   $scope.main = "Home";
@@ -171,12 +208,29 @@ app.controller('internationalController', function($scope,$http, $resource, $rou
      })
 });
 
-app.controller('logoutController', function($scope,$location){
-  $scope.logout = function(){
-      //Just clear values from scope
 
-      Session.clear();
-      $location.path('/home');
+app.controller('pollController', function($scope,$http, $window, $resource, $route ,$location ){
+  $scope.main="Polling";
 
+  $scope.feedback = function() {
+    $http({
+      url: '/polls',
+      method: 'post',
+      data: {
+        "email": $scope.email,
+        "phone": $scope.phone,
+        "comment": $scope.comment,
+        "line": $scope.line,
+        "correction": $scope.correction
+      }
+    }).then(function(data) {
+      if(data.data.success) {
+        alert("Thank you!");
+        $location.path('/polls');
+      }
+      else {
+        alert(data.data.message);
+      }
+    }, function(err){})
   }
 });

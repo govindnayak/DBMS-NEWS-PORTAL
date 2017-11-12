@@ -1,9 +1,4 @@
 <div class="fromarea">
-        <button style="float: right"><a href="#/admin">ADD NEWS</a></button>
-        <button style="float: right" onclick="document.getElementById('02').style.display='block'">DELETE NEWS</button>
-
-        <button style="float: right"><a  href="#/home">LOGOUT</a></button>
-
 
       <form class="formarea" method="post" ng-submit="addnews()">
       <div class="container">
@@ -25,27 +20,4 @@
       </div>
       </form>
 
-      <div id="02" class="modal">
-        <form class="formarea" method="post" ng-submit="deletenews(deleteheadline)">
-        <div class="container">
-
-          <br><label style="font-family: sans-serif"><b>Logged in as: {{catid}}</b></label><br><br>
-
-          <br><label style="font-family: sans-serif"><b>Head Line</b></label><br><br>
-          <input type="text" placeholder="Paste the headline here" name="deleteheadline" ng-model="deleteheadline" required><br>
-
-        </form>
-      </div>
-
 </div>
-
-
-<script>
-var modal = document.getElementById('02');
-window.onclick = function(event) {
-  if (event.target == modal) {
-      modal.style.display = "none";
-  }
-}
-
-</script>

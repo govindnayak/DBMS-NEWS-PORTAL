@@ -14,7 +14,13 @@ app.config(function($routeProvider) {
     templateUrl: 'views/admin.html',
     controller: 'adminController'
   })
-
+  .when('/editor', {
+    templateUrl: 'views/pages/editor.html',
+    controller: 'editorController'
+  })
+  .when('/polls', {
+    templateUrl: 'views/pages/poll.html'
+  })
   .when('/politics', {
     templateUrl: 'views/pages/politics.html',
     controller: 'politicsController'
@@ -43,17 +49,7 @@ app.config(function($routeProvider) {
     templateUrl: 'views/pages/feedback.html',
     controller: 'feedbackController'
   })
-  .when('/logout', {
-    templateUrl: '',
-    controller: 'logoutController'
-  })
   .otherwise({
     redirectTo: '/home'
   })
-});
-
-
-app.controller('mainController', function($scope,$window) {
-  $scope.main = "Main";
-  $scope.logstatus = $window.localStorage["loggedin"];
 });
