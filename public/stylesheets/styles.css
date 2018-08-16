@@ -18,6 +18,17 @@ html,body {
   height: 100%;
   font-family: sans-serif;
 }
+input[type=radio]:checked ~ .check {
+  border: 5px solid #0DFF92;
+}
+
+input[type=radio]:checked ~ .check::before{
+  background: #0DFF92;
+}
+
+input[type=radio]:checked ~ label{
+  color: #0DFF92;
+}
 
 a{
   text-decoration: none;
@@ -57,6 +68,10 @@ aside a {
   text-align: left;
   color: #818181;
 
+}
+aside li{
+  display: inline-block;
+  position: relative;
 }
 .toggle-wrap {
   margin-top: -55px;
@@ -103,12 +118,13 @@ img{
 .article{
    box-shadow: 1px 1px 2px #888888;
    margin-top: 10px;
-   margin-right: 100px;
-   font-family: sans-serif;
-   color: #585858;
+   margin-right: 90px;
+   font-family: "Arial", sans-serif;
+   color: #404040;
    margin-left: 270px;
-   padding-right: 20px;
-   letter-spacing: 0.4px;
+   font-weight: 500;
+   padding-right: 25px;
+   letter-spacing: 0.3px;
    display: inline-block;
    font-size: 15px;
 }
@@ -128,10 +144,10 @@ img{
   background: #ff4d4d;
   font-weight: bold;
   border: none;
-  width: 100px;
+  width: 80px;
   color: white;
   height: 30px;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   border-radius: 5px;
 }

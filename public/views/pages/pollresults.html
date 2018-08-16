@@ -1,0 +1,55 @@
+<a href="#/editor"><button class="mybutton" style="float: right;background-color: #303030; font-size: 14px">EDITOR HOME</button></a>
+
+<div class="formarea" style="margin-right: 150px">
+  <h3 style="color: #585858">Editor: Poll Analysis</h3>
+  <table>
+    <col width="180">
+    <tr>
+    <th>Polling ID</th>
+    <th style="width: 700px">Question</th>
+    <th>Option1</th>
+    <th>Option2</th>
+    <th>Option3</th>
+    <th>Option4</th>
+    <th>Result</th>
+
+  </tr>
+    <tr ng-repeat="x in feed">
+      <td>{{ x.pid }}</td>
+      <td style="color: #383838"><b>{{x.question.question}}<b></td>
+      <td>{{x.question.choices[0]}}<br>({{ x.op1 }})</td>
+      <td>{{x.question.choices[1]}}<br>({{ x.op2 }})</td>
+      <td>{{x.question.choices[2]}}<br>({{ x.op3 }})</td>
+      <td>{{x.question.choices[3]}}<br>({{ x.op4 }})</td>
+      <td>
+        <div ng-if="x.op1==x.result"><b>{{x.question.choices[0]}}</b></div>
+        <div ng-if="x.op2==x.result"><b>{{x.question.choices[1]}}</b></div>
+        <div ng-if="x.op3==x.result"><br><b>{{x.question.choices[2]}}</b></div>
+        <div ng-if="x.op4==x.result"><br><b>{{x.question.choices[3]}}</b></div>
+
+        <!-- {{ x.result }} -->
+      </td>
+  </tr>
+  </table>
+</div>
+
+
+
+
+
+<style>
+table, th , td  {
+  font-family: sans-serif;
+  font-size: 13px;
+  border: 0.5px solid darkgrey;
+  border-collapse: collapse;
+  padding: 8px 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>

@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
   .when('/polls', {
     templateUrl: 'views/pages/poll.html'
   })
+  .when('/pollresults', {
+    templateUrl: 'views/pages/pollresults.html',
+    controller: 'pollController'
+  })
   .when('/politics', {
     templateUrl: 'views/pages/politics.html',
     controller: 'politicsController'
@@ -48,6 +52,13 @@ app.config(function($routeProvider) {
   .when('/feedback', {
     templateUrl: 'views/pages/feedback.html',
     controller: 'feedbackController'
+  })
+  .when('/aboutus', {
+    templateUrl: 'views/pages/about.html',
+  })
+  .when('/suggestededits', {
+    templateUrl: 'views/pages/suggestededits.html',
+    controller: 'suggestededitsController'
   })
   .otherwise({
     redirectTo: '/home'

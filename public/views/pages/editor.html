@@ -1,4 +1,7 @@
-<div>
+<a href="#/pollresults"><button class="mybutton" style="float: right; background-color: #303030; font-size: 14px">POLL RESULTS</button></a>
+
+<a href="#/suggestededits"><button class="mybutton" style="float: right;background-color: #336699; font-size: 14px">FEEDBACK ANALYSIS</button></a>
+
 
   <div class="display-area">
 
@@ -6,9 +9,11 @@
 
     <a href="{{x.img_url}}"><p><img width="130px" height="120px" src="{{x.img_url}}"></p></a>
 
-    <strong style="font-size: 16px; color: #282828	">{{x.headline}}</strong>
-    <button class="button2" style="float: right; background-color: #66FF33" ng-click="deletenews(x)">DELETE</button>
-    <button class="button2" style="float: right" ng-click="approvenews(x)">APPROVE</button>
+    <strong style="font-size: 16px; color: #282828">{{x.headline}}</strong><br>
+    <button class="button2" style="float: right" ng-click="deletenews(x)">DELETE</button>
+    <button class="button2" onclick="editmodal()" style="float: right; background-color: #336699" ng-click="loadtext(x)">EDIT</button>
+    <button ng-show="!x.approval" class="button2" style="float: right; background-color: #CC9900" ng-click="approvenews(x)">APPROVE</button>
+    <button ng-show="x.approval" class="button2" style="float: right; background-color: #4DBD33">APPROVED</button>
     <br>
     <span style="font-size: 10px"class="badge">{{x.date}}</span>
 
@@ -18,7 +23,45 @@
       <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
     </div>
 
+    <div class="modal" id="05">
+
+            <form class="formarea" ng-submit="editnews(editor)">
+            <div class="container">
+              <br><label style="font-family: sans-serif"><b><h3>Edit News</h3></b></label><br>
+
+              <br><label style="font-family: sans-serif"><b>Head Line</b></label><br><br>
+              <input type="text" name="headline" ng-model="editor.newheadline"><br>
+              <br><label style="font-family: sans-serif"><b>Article</b></label><br><br>
+              <input type="text" name="content" ng-model="editor.newcontent"><br>
+
+              <br><label style="font-family: sans-serif"><b>Image URL</b></label><br><br>
+              <input type="text" name="image" ng-model="editor.newimage"><br><br>
+
+              <div class="form-actions">
+                  <button style="width: 160px" type="submit" class="loginbtn">SUBMIT</button>
+              </div>
+            </div>
+            </form>
+
+      </div>
+
   </div>
 
   </div>
-</div>
+
+
+
+
+<script>
+function logout()
+{
+   location.reload();
+}
+
+
+
+function editmodal() {
+  document.getElementById('05').style.display='block';
+  //$rootScope.permission='A';
+}
+</script>

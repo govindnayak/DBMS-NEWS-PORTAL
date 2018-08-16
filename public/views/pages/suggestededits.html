@@ -1,0 +1,44 @@
+<a href="#/editor"><button class="mybutton" style="float: right;background-color: #303030; font-size: 14px">EDITOR HOME</button></a>
+
+
+  <div class="display-area">
+    <div class="article">
+
+  <table id = "table01">
+    <caption><h2 style="text-decoration: none; color: #585858">List of suggestions given by users</h2></caption>
+    <br><br>
+    <tr>
+      <th>Headline</th>
+      <th>Comments</th>
+      <th>Correction</th>
+      <th>Done</th>
+    </tr>
+    <tr ng-repeat = "x in feed">
+      <td>{{x.headline}}</td>
+      <td style="background-color: #ccff99">{{x.comments}}</td>
+
+      <td>{{x.correction}}</td>
+      <td><button class="button2" style = "background-color: #3366FF" ng-click = "done(x.id)">DONE</button></td>
+    </tr>
+  </table>
+
+  </div>
+</div>
+<script>
+
+</script>
+<style>
+table, th , td  {
+  font-family: sans-serif;
+  font-size: 14px;
+  border: 0.5px solid darkgrey;
+  border-collapse: collapse;
+  padding: 10px 10px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>

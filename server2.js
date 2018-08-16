@@ -5,6 +5,7 @@ var
   sql = require('mysql'),
   formidable = require('formidable'),
   datetime = require('node-datetime'),
+  escape = require('sql-escape'),
   fs = require('fs'),
 
   port = 4000;
@@ -24,6 +25,10 @@ var server=app.listen(port,function(){
 })
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 
 app.use('/', express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
@@ -169,6 +174,30 @@ app.get("/sports", function(req, res){
       })
 });
 
+app.get("/pollresults", function(req, res){
+      connection.query("select * from poll_analysis", function(err, data){
+        if(err)
+        {
+          console.log("Error while querying database :- " + err);
+          res.send(err);
+        }
+        else {
+          connection.query("select greatest(op1,op2,op3,op4)  as result from poll_analysis ", function(err, data1){
+            if(err)
+            {
+              console.log("Error while querying database :- " + err);
+              res.send(err);
+            }
+            else {
+                console.log("asdasd");
+                console.log(data1);
+                res.send(data);
+            }
+          })
+          console.log(JSON.stringify(data));
+        }
+      })
+});
 /////////////////////////////////////////////////////////////////////////////////////////////
 app.post("/admin", function(req, res){
   //console.log("New path" + newpath);
@@ -243,11 +272,34 @@ app.post("/approve", function(req, res){
 
 });
 
+app.post("/edit", function(req, res){
+    var art_id;
+    console.log(req.body.editheadline);
+    console.log(req.body.editcontent);
+    console.log(req.body.editimage);
+    console.log(req.body.editaid);
+
+    connection.query('update article set headline = ?,content = ?,img_url = ? WHERE aid = ?',[req.body.editheadline, req.body.editcontent, req.body.editimage, req.body.editaid], function(err, data){
+
+      if(err || (data.affectedRows==0))
+      {
+        console.log(err);
+        res.send({"success":false , "message":"Sorry, could not edit news!"});
+
+      }
+      else {
+
+        res.send({"success":true , "message":"Edited"});
+      }
+    })
+
+
+});
+
 app.post("/feedback", function(req, res){
   //console.log("New path" + newpath);
 
-    connection.query('insert into feedback values(?, ?, ?, ?, ?)',[req.body.email, req.body.phone, req.body.comment, req.body.line, req.body.correction], function(err, result){
-
+    connection.query('insert into feedback (email, phone, comments, headline, correction, done) values(?, ?, ?, ?, ?, 0)',[req.body.email, req.body.phone, req.body.comment, req.body.line, req.body.correction], function(err, result){
       if(err)
       {
         console.log(err);
@@ -260,23 +312,54 @@ app.post("/feedback", function(req, res){
       }
   })
 });
-
 app.post("/polls", function(req, res){
-  //console.log("New path" + newpath);
+    var result_poll;
+    var answers = JSON.parse(req.body.answers);
+    console.log(answers);
+    for(var i=0; i<answers.length;i++) {
 
-    connection.query('select * from poll', function(err, result){
+        connection.query('UPDATE poll_analysis SET op? = op? + 1 WHERE pid = ?', [answers[i]+1, answers[i]+1, i+1], function(err, result){
+          if(err)
+          {
+            console.log(err);
+          res.send({"success":false , "message":"failed"});
+        }
+        if(i==answers.length-1) {
+          res.send({"success":true , "message":"successful"});
+        }
 
-      if(err)
-      {
-        console.log(err);
-        res.send({"success":false , "message":"failed"});
+    })
 
-      }
-      else {
-        console.log(result);
-        res.send({"success":true , "message":"successful"});
-      }
+  }
+
+
+});
+
+
+app.get("/suggestededits", function(req,res){
+  var str = "Good";
+  connection.query('select id, headline, comments, correction from feedback where comments LIKE ?', '%' + str + '%sub', function(err, result) {
+    if(err)
+    {
+      console.log(err);
+      res.send(err);
+    }
+    else{
+
+      console.log(result);
+      res.send(result);
+    }
   })
 });
-/*restAPI how to create
-how to make a post request to restAPI */
+app.post("/done", function(req, res) {
+  connection.query("update feedback set done = 1 where id = ?", [req.body.id], function(err, data) {
+    if(err)
+    {
+      console.log(err);
+      res.send(err);
+    }
+    else {
+      res.send({"success": true, "message": "Successful"})
+    }
+  })
+});

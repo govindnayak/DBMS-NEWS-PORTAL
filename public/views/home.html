@@ -4,17 +4,15 @@
 
   <div class="article" ng-repeat="x in feed">
 
-    <a href="{{x.img_url}}"><p><img width="130px" height="120px" src="{{x.img_url}}"></p></a>
+    <a href="{{x.img_url}}"><p><img width="140px" height="120px" src="{{x.img_url}}"></p></a>
 
-    <strong style="font-size: 16px; color: #282828	">{{x.headline}}</strong>
+    <strong style="font-size: 16.5px; color: #282828	">{{x.headline}}</strong>
     <br>
     <span style="font-size: 10px"class="badge">{{x.date}}</span>
 
     <p style="text-align: justify">{{x.content}}</p>
 
-    <div class="rating">
-      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-    </div>
+  
 
   </div>
 
